@@ -13,23 +13,31 @@ package card;
  * student id 991707227
  */
 import java.util.Scanner;
-
 public class CardTrick {
 
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         Card[] magicHand = new Card[7];
-
-        for(int i = 0; i < magicHand.length; i++) {
+        
+        for(int i=0; i<magicHand.length; i++)
+        {
             Card c = new Card();
             c.setValue(generateRandomNumber());
             c.setSuit(Card.SUITS[generateRandomNumber(0, 3)]);
             magicHand[i] = c;
         }
+        //  luckyCard is added 
+        Card luckyCard = new Card();
+        luckyCard.setValue(7);
+        luckyCard.setSuit(Card.SUITS[1]);
+
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the value of your card: ");
         int value = scanner.nextInt();
-        System.out.print("Enter the suit of your card (0-3 where 0 = Hearts, 1 = Diamonds, 2 = Clubs, 3 = Spades): ");
+        System.out.print("Enter the suit of your card (0-3): ");
         int suit = scanner.nextInt();
 
         Card userCard = new Card();
@@ -45,18 +53,27 @@ public class CardTrick {
         }
 
         if(found) {
-            System.out.println("Congratulations! Your card is in the magic hand.");
+            System.out.println("Great! Your card is in the magic hand.");
         } else {
-            System.out.println("Sorry, your card is not in the magic hand.");
+            System.out.println(" Oops, your card is not in the magic hand.");
+        }
+        if(luckyCard.getValue() == userCard.getValue() && luckyCard.getSuit().equals(userCard.getSuit())) 
+        {
+            System.out.println("You have also found the lucky card!");
+        }
+        else 
+        {
+            System.out.println("You have NOT found the lucky card!");
         }
     }
 
     private static int generateRandomNumber() {
         return (int) (Math.random() * 13 + 1);
     }
-
+    
     private static int generateRandomNumber(int min, int max) {
         return (int) (Math.random() * (max - min + 1) + min);
-    }
+    }
+    
 }
 
